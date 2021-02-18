@@ -1,28 +1,30 @@
 Option Explicit
 
-Const Result_SheetName As String = "Results"
+Const R_SheetName As String = "Results"
 
 Sub Updatesheets()
     Dim rowEnd As Long, row As Long, match As Long
-    Dim A_WB As Workbook, B_WB As Workbook, Result_WB As Workbook
-    Dim A_WS As Worksheet, B_WS As Worksheet, Result_WS As Worksheet
-    
+    Dim A_WB As Workbook, B_WB As Workbook, R_WB As Workbook
+    Dim A_WS As Worksheet, B_WS As Worksheet, R_WS As Worksheet
+    Dim A_colRef As Integer, A_colLnk As Integer, B_colRef As Integer, B_colLnk As Integer, R_Row As Integer
+    Dim A_Path As String, B_Path As String, A_SheetName As String, B_SheetName As String
     Dim A_arr As Variant, B_arr As Variant
+    
+    
+    Set R_Row = 2
 
-    Dim Result_Row As Long = 2 ' Variable for the number of row lines in the worksheet result
+    Set A_Path = "FULL PATH TO THE XLSX A"
+    Set B_Path = "FULL PATH TO THE XLSX B"
 
+    Set A_colRef = 3 
+    Set A_colLnk = 6   
+    Set B_colRef = 3 
+    Set B_colLnk = 6
+    Set A_SheetName = "Feuil1"
+    Set B_SheetName = "Feuil1"
 
-    Dim A_Path As String = "FULL PATH TO THE XLSX A"
-    Dim A_colRef As Integer = 3 
-    Dim A_colLnk As Integer = 6   
-    Dim B_Path As String = "FULL PATH TO THE XLSX B"
-    Dim B_colRef As Integer = 3 
-    Dim B_colLnk As Integer = 6
-    Dim A_SheetName As String = "Feuil1"   'sheet name of 'Our' workbook
-    Dim B_SheetName As String = "Feuil1" 
-
-    Set Result_WB = ThisWorkbook
-    Set Result_WS = C_WB.Sheets(Result_SheetName)
+    Set R_WB = ThisWorkbook
+    Set R_WS = C_WB.Sheets(R_SheetName)
     
 
     Workbooks.Open Filename:=A_Path
@@ -41,7 +43,7 @@ Sub Updatesheets()
     rowEnd = B_WS.Cells(Rows.Count, B_colRef).End(xlUp).Row
     B_arr = B_WS.Range(Cells(1, B_colRef).Address, Cells(rowEnd, B_colRef).Address).Value
 
-    Result_WS.Cells.ClearContents 'EEEEERRRRRRAAAAAAASSSSSEEEEEEE EVERYTHING!!!!!! MOUHAHAHAHAHAHA
+    R_WS.Cells.ClearContents 'EEEEERRRRRRAAAAAAASSSSSEEEEEEE EVERYTHING!!!!!! MOUHAHAHAHAHAHA
 
     ' Pause screen update  
     With Application
@@ -50,12 +52,12 @@ Sub Updatesheets()
     End With
 
     'Lets put some headers
-    Result_WS.Cells(1,1) = "Workbook_A"
-    Result_WS.Cells(1,2) = "Ref_A"
-    Result_WS.Cells(1,3) = "Lnk_A"
-    Result_WS.Cells(1,4) = "Lnk_B"
-    Result_WS.Cells(1,5) = "Ref_B"
-    Result_WS.Cells(1,6) = "Workbook_B"
+    R_WS.Cells(1,1) = "Workbook_A"
+    R_WS.Cells(1,2) = "Ref_A"
+    R_WS.Cells(1,3) = "Lnk_A"
+    R_WS.Cells(1,4) = "Lnk_B"
+    R_WS.Cells(1,5) = "Ref_B"
+    R_WS.Cells(1,6) = "Workbook_B"
 
     For row = 2 To UBound(A_arr, 1)
         match = 0
@@ -63,21 +65,21 @@ Sub Updatesheets()
         match = WorksheetFunction.Match(B_arr(row, 1), A_arr, 0)
         On Error GoTo 0
         
-        Result_WS.Cells(Result_Row,1) = "Prout A"
-        Result_WS.Cells(Result_Row,2) = A_WS.Cells(match, A_colRef).Value
-        Result_WS.Cells(Result_Row,3) = A_WS.Cells(match, A_colLnk).Value
+        R_WS.Cells(R_Row,1) = "Prout A"
+        R_WS.Cells(R_Row,2) = A_WS.Cells(match, A_colRef).Value
+        R_WS.Cells(R_Row,3) = A_WS.Cells(match, A_colLnk).Value
 
         If match <> 0 Then
             ' B_WS.Cells(row, B_colLnk).Value = A_WS.Cells(match, A_colLnk).Value
             ' MsgBox "Ref A " & A_WS.Cells(match, A_colRef).Value & "Ref B" &  & "Lnk A " & A_WS.Cells(match, A_colLnk).Value & "Lnk B" & B_WS.Cells(row, B_colLnk).Value
-            Result_WS.Cells(Result_Row,4) = B_WS.Cells(row, B_colLnk).Value
-            Result_WS.Cells(Result_Row,5) = B_WS.Cells(row, B_colRef).Value
+            R_WS.Cells(R_Row,4) = B_WS.Cells(row, B_colLnk).Value
+            R_WS.Cells(R_Row,5) = B_WS.Cells(row, B_colRef).Value
 
         End If
 
-        Result_WS.Cells(Result_Row,6) = "Prout B"
+        R_WS.Cells(R_Row,6) = "Prout B"
 
-        Result_Row = Result_Row + 1
+        R_Row = R_Row + 1
 
     Next row
 
