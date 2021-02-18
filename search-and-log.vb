@@ -68,3 +68,6 @@ Private Function OpenWB(ByVal Title As String) As Workbook
     Set OpenWB = ActiveWorkbook
 End Function
 
+'     |\__/,|   (`\
+'   _.|o o  |_   ) )
+' -(((---(((--------
