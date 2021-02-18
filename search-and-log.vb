@@ -1,54 +1,54 @@
 Option Explicit
-Const miWB1ItemNumberCol As Integer = 3 
-Const miWB1NumItemscol As Integer = 6   
-Const miWB2ItemNumberCol As Integer = 2 
-Const miWB2NumItemsCol As Integer = 6
+Const A_colRef As Integer = 3 
+Const A_colLnk As Integer = 6   
+Const B_colRef As Integer = 2 
+Const B_colLnk As Integer = 6
 
-Const msWB1SheetName As String = "Sheet1"   'sheet name of 'Our' workbook
-Const msWB2SheetName As String = "Sheet1"   'Sheet name of 'Their' workbook
+Const A_SheetName As String = "Feuil1"   'sheet name of 'Our' workbook
+Const B_SheetName As String = "Feuil1"   'Sheet name of 'Their' workbook
 
-Dim mvaWB1Data As Variant, mvaWB2Data As Variant
+Dim A_arr As Variant, B_arr As Variant
 
 Sub Updatesheets()
     Dim lRowEnd As Long, lRow As Long, lFound As Long
-    Dim vWB1 As Variant, vWB2 As Variant
-    Dim WB1 As Workbook, WB2 As Workbook
-    Dim WS1 As Worksheet, WS2 As Worksheet
+    Dim vA_WB As Variant, vB_WB As Variant
+    Dim A_WB As Workbook, B_WB As Workbook
+    Dim A_WS As Worksheet, B_WS As Worksheet
 
-    Set WB1 = OpenWB("Select 'Our' excel file")
+    Set A_WB = OpenWB("Select 'Our' excel file")
 
-    If (WB1 Is Nothing) Then
+    If (A_WB Is Nothing) Then
         MsgBox "Macro abandoned"
         Exit Sub
     End If
-    Set WS1 = Sheets(msWB1SheetName)
+    Set A_WS = Sheets(A_SheetName)
 
-    Set WB2 = OpenWB("Select 'Their' excel file")
-    If WB2 Is Nothing Then
-        WB1.Close savechanges:=False
+    Set B_WB = OpenWB("Select 'Their' excel file")
+    If B_WB Is Nothing Then
+        A_WB.Close savechanges:=False
         MsgBox "Macro Abandoned"
         Exit Sub
     End If
-    Set WS2 = Sheets(msWB2SheetName)
+    Set B_WS = Sheets(B_SheetName)
 
-    '-- Store WB1 item numbers into array --
-    lRowEnd = WS1.Cells(Rows.Count, miWB1ItemNumberCol).End(xlUp).Row
-    mvaWB1Data = WS1.Range(Cells(1, miWB1ItemNumberCol).Address, _
-                        Cells(lRowEnd, miWB1ItemNumberCol).Address).Value
+    '-- Store A_WB item numbers into array --
+    lRowEnd = A_WS.Cells(Rows.Count, A_colRef).End(xlUp).Row
+    A_arr = A_WS.Range(Cells(1, A_colRef).Address, _
+        Cells(lRowEnd, A_colRef).Address).Value
                         
-    '-- Store WB2 item numbers into array --
-    lRowEnd = WS2.Cells(Rows.Count, miWB2ItemNumberCol).End(xlUp).Row
-    mvaWB2Data = WS2.Range(Cells(1, miWB2ItemNumberCol).Address, _
-                        Cells(lRowEnd, miWB2ItemNumberCol).Address).Value
+    '-- Store B_WB item numbers into array --
+    lRowEnd = B_WS.Cells(Rows.Count, B_colRef).End(xlUp).Row
+    B_arr = B_WS.Range(Cells(1, B_colRef).Address, _
+        Cells(lRowEnd, B_colRef).Address).Value
 
-    For lRow = 2 To UBound(mvaWB2Data, 1)
+    For lRow = 2 To UBound(B_arr, 1)
         lFound = 0
         On Error Resume Next
-        lFound = WorksheetFunction.Match(mvaWB2Data(lRow, 1), mvaWB1Data, 0)
+        lFound = WorksheetFunction.Match(B_arr(lRow, 1), A_arr, 0)
         On Error GoTo 0
         If lFound <> 0 Then
-            ' WS2.Cells(lRow, miWB2NumItemsCol).Value = WS1.Cells(lFound, miWB1NumItemscol).Value
-            MsgBox WS2.Cells(lRow, miWB2NumItemsCol).Value
+            ' B_WS.Cells(lRow, B_colLnk).Value = A_WS.Cells(lFound, A_colLnk).Value
+            MsgBox B_WS.Cells(lRow, B_colLnk).Value
         End If
     Next lRow
 End Sub
@@ -56,8 +56,7 @@ End Sub
 Private Function OpenWB(ByVal Title As String) As Workbook
     Dim vWBName As Variant
 
-    vWBName = Application.GetOpenFilename(filefilter:="Excel files (*.xls),*.xls", _
-                                        Title:=Title)
+    vWBName = Application.GetOpenFilename(filefilter:="Excel files (*.xlsx),*.xlsx", Title:=Title)
     If vWBName = False Then
         Set OpenWB = Nothing
         Exit Function
