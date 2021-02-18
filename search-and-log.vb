@@ -1,7 +1,7 @@
 Option Explicit
 Const A_colRef As Integer = 3 
 Const A_colLnk As Integer = 6   
-Const B_colRef As Integer = 2 
+Const B_colRef As Integer = 3 
 Const B_colLnk As Integer = 6
 
 Const A_SheetName As String = "Feuil1"   'sheet name of 'Our' workbook
@@ -46,10 +46,12 @@ Sub Updatesheets()
         On Error Resume Next
         lFound = WorksheetFunction.Match(B_arr(lRow, 1), A_arr, 0)
         On Error GoTo 0
+        
         If lFound <> 0 Then
             ' B_WS.Cells(lRow, B_colLnk).Value = A_WS.Cells(lFound, A_colLnk).Value
-            MsgBox B_WS.Cells(lRow, B_colLnk).Value
+            MsgBox "Ref A " & A_WS.Cells(lFound, A_colRef).Value & "Ref B" & B_WS.Cells(lRow, B_colRef).Value & "Lnk A " & A_WS.Cells(lFound, A_colLnk).Value & "Lnk B" & B_WS.Cells(lRow, B_colLnk).Value
         End If
+
     Next lRow
 End Sub
 
