@@ -1,8 +1,8 @@
 Option Explicit
-Const miWB1ItemNumberCol As Integer = 1 'Column A
-Const miWB1NumItemscol As Integer = 3   'Column C
-Const miWB2ItemNumberCol As Integer = 2 'Column B
-Const miWB2NumItemsCol As Integer = 17  'column Q
+Const miWB1ItemNumberCol As Integer = 3 
+Const miWB1NumItemscol As Integer = 6   
+Const miWB2ItemNumberCol As Integer = 2 
+Const miWB2NumItemsCol As Integer = 6
 
 Const msWB1SheetName As String = "Sheet1"   'sheet name of 'Our' workbook
 Const msWB2SheetName As String = "Sheet1"   'Sheet name of 'Their' workbook
@@ -47,7 +47,8 @@ Sub Updatesheets()
         lFound = WorksheetFunction.Match(mvaWB2Data(lRow, 1), mvaWB1Data, 0)
         On Error GoTo 0
         If lFound <> 0 Then
-            WS2.Cells(lRow, miWB2NumItemsCol).Value = WS1.Cells(lFound, miWB1NumItemscol).Value
+            ' WS2.Cells(lRow, miWB2NumItemsCol).Value = WS1.Cells(lFound, miWB1NumItemscol).Value
+            MsgBox WS2.Cells(lRow, miWB2NumItemsCol).Value
         End If
     Next lRow
 End Sub
