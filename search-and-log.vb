@@ -21,7 +21,7 @@ Sub Updatesheets()
         MsgBox "Macro abandoned"
         Exit Sub
     End If
-    Set A_WS = Sheets(A_SheetName)
+    Set A_WS = A_WB.Sheets(A_SheetName)
 
     Set B_WB = OpenWB("Select 'Their' excel file")
     If B_WB Is Nothing Then
@@ -29,7 +29,7 @@ Sub Updatesheets()
         MsgBox "Macro Abandoned"
         Exit Sub
     End If
-    Set B_WS = Sheets(B_SheetName)
+    Set B_WS = B_WB.Sheets(B_SheetName)
 
     '-- Store A_WB item numbers into array --
     lRowEnd = A_WS.Cells(Rows.Count, A_colRef).End(xlUp).Row
