@@ -9,30 +9,26 @@ Sub Updatesheets()
     Dim A_colRef As Integer, A_colLnk As Integer, B_colRef As Integer, B_colLnk As Integer, R_Row As Integer
     Dim A_Path As String, B_Path As String, A_SheetName As String, B_SheetName As String
     Dim A_arr As Variant, B_arr As Variant
-    
-    
-    Set R_Row = 2
 
-    Set A_Path = "FULL PATH TO THE XLSX A"
-    Set B_Path = "FULL PATH TO THE XLSX B"
+    R_Row = 2
 
-    Set A_colRef = 3 
-    Set A_colLnk = 6   
-    Set B_colRef = 3 
-    Set B_colLnk = 6
-    Set A_SheetName = "Feuil1"
-    Set B_SheetName = "Feuil1"
+
+    A_Path = "FULL PATH TO THE XLSX A"
+    B_Path = "FULL PATH TO THE XLSX B"
+    A_colRef = 3 
+    A_colLnk = 6   
+    B_colRef = 3 
+    B_colLnk = 6
+    A_SheetName = "Feuil1"
+    B_SheetName = "Feuil1"
 
     Set R_WB = ThisWorkbook
-    Set R_WS = C_WB.Sheets(R_SheetName)
+    Set R_WS = R_WB.Sheets(R_SheetName)
     
-
-    Workbooks.Open Filename:=A_Path
-    Set A_WB = ActiveWorkbook
+    Set A_WB = Workbooks.Open(A_Path)
     Set A_WS = A_WB.Sheets(A_SheetName)
 
-    Workbooks.Open Filename:=B_Path
-    Set B_WB = ActiveWorkbook
+    Set B_WB = Workbooks.Open(B_Path)
     Set B_WS = B_WB.Sheets(B_SheetName)
 
     '-- Store Version A items into array --
