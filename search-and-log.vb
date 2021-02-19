@@ -13,6 +13,9 @@ Sub Updatesheets()
     R_Row = 2
 
 
+    ' Need to create a loop that would loop through a config table which would have 6 columns:
+    ' A_path, A_SheetName, A_colRef, A_colLnk, B_path, B_SheetName, B_colRef, B_colLnk
+
     A_Path = "FULL PATH TO THE XLSX A"
     B_Path = "FULL PATH TO THE XLSX B"
     A_colRef = 3 
@@ -85,19 +88,6 @@ Sub Updatesheets()
 
 
 End Sub
-
-Private Function OpenWB(ByVal Title As String) As Workbook
-    Dim vWBName As Variant
-
-    vWBName = Application.GetOpenFilename(filefilter:="Excel files (*.xlsx),*.xlsx", Title:=Title)
-    If vWBName = False Then
-        Set OpenWB = Nothing
-        Exit Function
-    End If
-
-    Workbooks.Open Filename:=vWBName
-    Set OpenWB = ActiveWorkbook
-End Function
 
 '                       /^--^\     /^--^\     /^--^\
 '                       \____/     \____/     \____/
