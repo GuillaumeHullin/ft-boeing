@@ -58,23 +58,24 @@ Sub Updatesheets()
     For row = 2 To UBound(A_arr, 1)
         match = 0
         On Error Resume Next
-        match = WorksheetFunction.Match(B_arr(row, 1), A_arr, 0)
+        match = WorksheetFunction.Match(A_arr(row, 1), B_arr, 0)
         On Error GoTo 0
-        
-        If match <> 0 Then
-            ' B_WS.Cells(row, B_colLnk).Value = A_WS.Cells(match, A_colLnk).Value
-            ' MsgBox "Ref A " & A_WS.Cells(match, A_colRef).Value & "Ref B" &  & "Lnk A " & A_WS.Cells(match, A_colLnk).Value & "Lnk B" & B_WS.Cells(row, B_colLnk).Value
-            
-            R_WS.Cells(R_Row,1) = "Prout A"
-            R_WS.Cells(R_Row,2) = A_WS.Cells(match, A_colRef).Value
-            R_WS.Cells(R_Row,3) = A_WS.Cells(match, A_colLnk).Value
-            R_WS.Cells(R_Row,4) = B_WS.Cells(row, B_colLnk).Value
-            R_WS.Cells(R_Row,5) = B_WS.Cells(row, B_colRef).Value
-            R_WS.Cells(R_Row,6) = "Prout B"
 
-            R_Row = R_Row + 1
+        R_WS.Cells(R_Row,1) = A_WB.Name
+        R_WS.Cells(R_Row,2) = A_WS.Cells(row, A_colRef).Value
+        R_WS.Cells(R_Row,3) = A_WS.Cells(row, A_colLnk).Value
 
+        If match <> 0 Then            
+            R_WS.Cells(R_Row,4) = B_WS.Cells(match, B_colLnk).Value
+            R_WS.Cells(R_Row,5) = B_WS.Cells(match, B_colRef).Value
+        Else
+            R_WS.Cells(R_Row,4) = "Plic!!!"
+            R_WS.Cells(R_Row,5) = "Ploc!!!"
         End If
+
+        R_WS.Cells(R_Row,6) = B_WB.Name
+        R_Row = R_Row + 1
+
     Next row
 
     With Application
