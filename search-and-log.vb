@@ -34,12 +34,10 @@ Sub Updatesheets()
     '-- Store Version A items into array --
     rowEnd = A_WS.Cells(Rows.Count, A_colRef).End(xlUp).Row
     A_arr = A_WS.Range(Cells(1, A_colRef).Address, Cells(rowEnd, A_colRef).Address).Value
-    A_WB.Close SaveChanges:=False
 
     '-- Store Version B items into array --
     rowEnd = B_WS.Cells(Rows.Count, B_colRef).End(xlUp).Row
     B_arr = B_WS.Range(Cells(1, B_colRef).Address, Cells(rowEnd, B_colRef).Address).Value
-    B_WB.Close SaveChanges:=False
 
     R_WS.Cells.ClearContents 'EEEEERRRRRRAAAAAAASSSSSEEEEEEE EVERYTHING!!!!!! MOUHAHAHAHAHAHA
 
@@ -74,11 +72,9 @@ Sub Updatesheets()
             R_WS.Cells(R_Row,5) = B_WS.Cells(row, B_colRef).Value
             R_WS.Cells(R_Row,6) = "Prout B"
 
+            R_Row = R_Row + 1
+
         End If
-
-
-        R_Row = R_Row + 1
-
     Next row
 
     With Application
