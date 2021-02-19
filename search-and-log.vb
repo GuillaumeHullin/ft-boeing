@@ -34,10 +34,12 @@ Sub Updatesheets()
     '-- Store Version A items into array --
     rowEnd = A_WS.Cells(Rows.Count, A_colRef).End(xlUp).Row
     A_arr = A_WS.Range(Cells(1, A_colRef).Address, Cells(rowEnd, A_colRef).Address).Value
-                        
+    A_WB.Close SaveChanges:=False
+
     '-- Store Version B items into array --
     rowEnd = B_WS.Cells(Rows.Count, B_colRef).End(xlUp).Row
     B_arr = B_WS.Range(Cells(1, B_colRef).Address, Cells(rowEnd, B_colRef).Address).Value
+    B_WB.Close SaveChanges:=False
 
     R_WS.Cells.ClearContents 'EEEEERRRRRRAAAAAAASSSSSEEEEEEE EVERYTHING!!!!!! MOUHAHAHAHAHAHA
 
@@ -61,19 +63,19 @@ Sub Updatesheets()
         match = WorksheetFunction.Match(B_arr(row, 1), A_arr, 0)
         On Error GoTo 0
         
-        R_WS.Cells(R_Row,1) = "Prout A"
-        R_WS.Cells(R_Row,2) = A_WS.Cells(match, A_colRef).Value
-        R_WS.Cells(R_Row,3) = A_WS.Cells(match, A_colLnk).Value
-
         If match <> 0 Then
             ' B_WS.Cells(row, B_colLnk).Value = A_WS.Cells(match, A_colLnk).Value
             ' MsgBox "Ref A " & A_WS.Cells(match, A_colRef).Value & "Ref B" &  & "Lnk A " & A_WS.Cells(match, A_colLnk).Value & "Lnk B" & B_WS.Cells(row, B_colLnk).Value
+            
+            R_WS.Cells(R_Row,1) = "Prout A"
+            R_WS.Cells(R_Row,2) = A_WS.Cells(match, A_colRef).Value
+            R_WS.Cells(R_Row,3) = A_WS.Cells(match, A_colLnk).Value
             R_WS.Cells(R_Row,4) = B_WS.Cells(row, B_colLnk).Value
             R_WS.Cells(R_Row,5) = B_WS.Cells(row, B_colRef).Value
+            R_WS.Cells(R_Row,6) = "Prout B"
 
         End If
 
-        R_WS.Cells(R_Row,6) = "Prout B"
 
         R_Row = R_Row + 1
 
