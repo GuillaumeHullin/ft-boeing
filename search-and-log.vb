@@ -18,6 +18,10 @@ Sub Updatesheets()
             .Pattern = "$.*\["
     End With
 
+    Set WB = ThisWorkbook
+    Set R_WS = WB.Sheets(R_SheetName)
+    Set C_WS = WB.Sheets(C_SheetName)
+    
     ' Need to create a loop that would loop through a config table which would have 6 columns:
     ' A_path, A_SheetName, A_colRef, A_colLnk, B_path, B_SheetName, B_colRef, B_colLnk
 
@@ -30,10 +34,6 @@ Sub Updatesheets()
     A_SheetName = "Feuil1"
     B_SheetName = "Feuil1"
 
-    Set WB = ThisWorkbook
-    Set R_WS = WB.Sheets(R_SheetName)
-    Set C_WS = WB.Sheets(C_SheetName)
-    
     Set A_WB = Workbooks.Open(A_Path)
     Set A_WS = A_WB.Sheets(A_SheetName)
 
@@ -55,12 +55,12 @@ Sub Updatesheets()
 
     '-- Clean up Arr A
     For row = 2 To UBound(A_arr, 1)
-        A_arr(row, 1) = regEx.Replace(A_arr(row), "")
+        A_arr(row, 1) = regEx.Replace(A_arr(row, 1)), "")
     Next row
 
     '-- Clean up Arr A
     For row = 2 To UBound(B_arr, 1)
-        B_arr(row, 1) = regEx.Replace(B_arr(row), "")
+        B_arr(row, 1) = regEx.Replace(B_arr(row, 1)), "")
     Next row
 
         
