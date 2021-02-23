@@ -1,6 +1,7 @@
 Option Explicit
 
 Const R_SheetName As String = "Results"
+Const C_SheetName As String = "Config"
 
 Sub Updatesheets()
     Dim rowEnd As Long, row As Long, match As Long
@@ -9,9 +10,13 @@ Sub Updatesheets()
     Dim A_colRef As Integer, A_colLnk As Integer, B_colRef As Integer, B_colLnk As Integer, R_Row As Integer
     Dim A_Path As String, B_Path As String, A_SheetName As String, B_SheetName As String
     Dim A_arr As Variant, B_arr As Variant
-
+    Dim regEx As New RegExp
+    
     R_Row = 2
-
+    
+    With regEx
+            .Pattern = "$.*\["
+    End With
 
     ' Need to create a loop that would loop through a config table which would have 6 columns:
     ' A_path, A_SheetName, A_colRef, A_colLnk, B_path, B_SheetName, B_colRef, B_colLnk
@@ -34,22 +39,14 @@ Sub Updatesheets()
     Set B_WB = Workbooks.Open(B_Path)
     Set B_WS = B_WB.Sheets(B_SheetName)
 
+    '-- Store Version A items into array --
+    rowEnd = A_WS.Cells(Rows.Count, A_colRef).End(xlUp).Row
+    A_arr = A_WS.Range(Cells(1, A_colRef).Address, regEx.Replace(Cells(rowEnd, A_colRef).Address).Value, "")
 
                     
-
-    With CreateObject("VBScript.Regexp")
-        .Pattern = "$.*\["
-                            
-        '-- Store Version A items into array --
-        rowEnd = A_WS.Cells(Rows.Count, A_colRef).End(xlUp).Row
-        A_arr = A_WS.Range(Cells(1, A_colRef).Address, .Replace(Cells(rowEnd, A_colRef).Address).Value, "")
-
-                    
-        '-- Store Version B items into array --
-        rowEnd = B_WS.Cells(Rows.Count, B_colRef).End(xlUp).Row
-        B_arr = B_WS.Range(Cells(1, B_colRef).Address, .Replace(Cells(rowEnd, B_colRef).Address).Value, "")
-
-    End With
+    '-- Store Version B items into array --
+    rowEnd = B_WS.Cells(Rows.Count, B_colRef).End(xlUp).Row
+    B_arr = B_WS.Range(Cells(1, B_colRef).Address, regEx.Replace(Cells(rowEnd, B_colRef).Address).Value, "")
 
     R_WS.Cells.ClearContents 'EEEEERRRRRRAAAAAAASSSSSEEEEEEE EVERYTHING!!!!!! MOUHAHAHAHAHAHA
 
