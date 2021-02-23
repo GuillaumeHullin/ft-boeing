@@ -40,14 +40,31 @@ Sub Updatesheets()
     Set B_WB = Workbooks.Open(B_Path)
     Set B_WS = B_WB.Sheets(B_SheetName)
                         
+                        
+    '-- Store Config items into array --
+    'rowEnd = C_WS.Cells(Rows.Count, C_colRef).End(xlUp).Row
+    'A_arr = C_WS.Range(Cells(1, C_colRef).Address, Cells(rowEnd, C_colRef).Address).Value
+                        
     '-- Store Version A items into array --
     rowEnd = A_WS.Cells(Rows.Count, A_colRef).End(xlUp).Row
-    A_arr = A_WS.Range(Cells(1, A_colRef).Address, regEx.Replace((Cells(rowEnd, A_colRef).Address).Value, ""))
-         
+    A_arr = A_WS.Range(Cells(1, A_colRef).Address, Cells(rowEnd, A_colRef).Address).Value             
+                
     '-- Store Version B items into array --
     rowEnd = B_WS.Cells(Rows.Count, B_colRef).End(xlUp).Row
-    B_arr = B_WS.Range(Cells(1, B_colRef).Address, regEx.Replace((Cells(rowEnd, B_colRef).Address).Value, ""))
+    B_arr = B_WS.Range(Cells(1, B_colRef).Address, Cells(rowEnd, B_colRef).Address).Value
 
+    '-- Clean up Arr A
+    For row = 2 To UBound(A_arr, 1)
+        A_arr(row, 1) = regEx.Replace(A_arr(row), "")
+    Next row
+
+    '-- Clean up Arr A
+    For row = 2 To UBound(B_arr, 1)
+        B_arr(row, 1) = regEx.Replace(B_arr(row), "")
+    Next row
+
+        
+        
     R_WS.Cells.ClearContents 'EEEEERRRRRRAAAAAAASSSSSEEEEEEE EVERYTHING!!!!!! MOUHAHAHAHAHAHA
 
     ' Pause screen update  
