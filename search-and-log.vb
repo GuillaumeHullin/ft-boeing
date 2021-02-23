@@ -39,17 +39,6 @@ Sub Updatesheets()
         B_SheetName = C_WS.Cells(conf_line, 7).Value
         B_Path = C_WS.Cells(conf_line, 8).Value
 
-        MsgBox "Prout " + conf_line
-
-        MsgBox "The A_Path is " + A_Path
-        MsgBox "The A_SheetName is " + A_SheetName
-        MsgBox "The A_colRef is " + A_colRef
-        MsgBox "The A_colLnk is " + A_colLnk
-        MsgBox "The B_colLnk is " + B_colLnk
-        MsgBox "The B_colRef is " + B_colRef
-        MsgBox "The B_SheetName is " + B_SheetName
-        MsgBox "The B_Path is " + B_Path
-
         Set A_WB = Workbooks.Open(A_Path)
         Set A_WS = A_WB.Sheets(A_SheetName)
 
