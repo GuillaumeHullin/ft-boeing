@@ -5,8 +5,8 @@ Const C_SheetName As String = "Config"
 
 Sub Updatesheets()
     Dim rowEnd As Long, row As Long, match As Long
-    Dim A_WB As Workbook, B_WB As Workbook, R_WB As Workbook
-    Dim A_WS As Worksheet, B_WS As Worksheet, R_WS As Worksheet
+    Dim A_WB As Workbook, B_WB As Workbook, WB As Workbook
+    Dim A_WS As Worksheet, B_WS As Worksheet, R_WS As Worksheet, C_WS As Worksheet
     Dim A_colRef As Integer, A_colLnk As Integer, B_colRef As Integer, B_colLnk As Integer, R_Row As Integer
     Dim A_Path As String, B_Path As String, A_SheetName As String, B_SheetName As String
     Dim A_arr As Variant, B_arr As Variant
@@ -30,8 +30,9 @@ Sub Updatesheets()
     A_SheetName = "Feuil1"
     B_SheetName = "Feuil1"
 
-    Set R_WB = ThisWorkbook
-    Set R_WS = R_WB.Sheets(R_SheetName)
+    Set WB = ThisWorkbook
+    Set R_WS = WB.Sheets(R_SheetName)
+    Set C_WS = WB.Sheets(C_SheetName)
     
     Set A_WB = Workbooks.Open(A_Path)
     Set A_WS = A_WB.Sheets(A_SheetName)
@@ -41,9 +42,8 @@ Sub Updatesheets()
 
     '-- Store Version A items into array --
     rowEnd = A_WS.Cells(Rows.Count, A_colRef).End(xlUp).Row
-    A_arr = A_WS.Range(Cells(1, A_colRef).Address, regEx.Replace(Cells(rowEnd, A_colRef).Address).Value, "")
-
-                    
+    A_arr = A_WS.Range(Cells(1, A_colRef).Address, regEx.Replace(Cells(rowEnd, A_colRef).Address.Value), "")
+         
     '-- Store Version B items into array --
     rowEnd = B_WS.Cells(Rows.Count, B_colRef).End(xlUp).Row
     B_arr = B_WS.Range(Cells(1, B_colRef).Address, regEx.Replace(Cells(rowEnd, B_colRef).Address).Value, "")
