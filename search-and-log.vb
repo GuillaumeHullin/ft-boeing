@@ -4,11 +4,11 @@ Const R_SheetName As String = "Results"
 Const C_SheetName As String = "Config"
 
 Sub Updatesheets()
-    Dim rowEnd As Long, row As Long, conf_line As Long, match As Long
+    Dim rowEnd As Long, row As Long, conf_line As Long, match As Long, R_Row As Integer
     Dim A_WB As Workbook, B_WB As Workbook, WB As Workbook
     Dim A_WS As Worksheet, B_WS As Worksheet, R_WS As Worksheet, C_WS As Worksheet
-    Dim A_colRef As Integer, A_colLnk As Integer, B_colRef As Integer, B_colLnk As Integer, R_Row As Integer
-    Dim A_Path As String, B_Path As String, A_SheetName As String, B_SheetName As String
+    Dim A_colRef As Variant, A_colLnk As Variant, B_colRef As Variant, B_colLnk As Variant
+    Dim A_Path As Variant, B_Path As Variant, A_SheetName As Variant, B_SheetName As Variant
     Dim A_arr As Variant, B_arr As Variant, C_arr As Variant
     Dim regEx As New RegExp
     
