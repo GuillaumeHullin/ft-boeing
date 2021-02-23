@@ -39,14 +39,14 @@ Sub Updatesheets()
 
     Set B_WB = Workbooks.Open(B_Path)
     Set B_WS = B_WB.Sheets(B_SheetName)
-
+                        
     '-- Store Version A items into array --
     rowEnd = A_WS.Cells(Rows.Count, A_colRef).End(xlUp).Row
-    A_arr = A_WS.Range(Cells(1, A_colRef).Address, regEx.Replace(Cells(rowEnd, A_colRef).Address.Value), "")
+    A_arr = A_WS.Range(Cells(1, A_colRef).Address, regEx.Replace(Cells(rowEnd, A_colRef).Address).Value, ""))
          
     '-- Store Version B items into array --
     rowEnd = B_WS.Cells(Rows.Count, B_colRef).End(xlUp).Row
-    B_arr = B_WS.Range(Cells(1, B_colRef).Address, regEx.Replace(Cells(rowEnd, B_colRef).Address).Value, "")
+    B_arr = B_WS.Range(Cells(1, B_colRef).Address, regEx.Replace(Cells(rowEnd, B_colRef).Address).Value, ""))
 
     R_WS.Cells.ClearContents 'EEEEERRRRRRAAAAAAASSSSSEEEEEEE EVERYTHING!!!!!! MOUHAHAHAHAHAHA
 
