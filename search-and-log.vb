@@ -66,12 +66,12 @@ Sub Updatesheets()
 
         '-- Clean up Arr A
         For row = 2 To UBound(A_arr, 1)
-            A_arr(row, 1) = regEx.Replace(A_arr(row, 1)), "")
+            A_arr(row, 1) = regEx.Replace(A_arr(row, 1), "")
         Next row
 
         '-- Clean up Arr A
         For row = 2 To UBound(B_arr, 1)
-            B_arr(row, 1) = regEx.Replace(B_arr(row, 1)), "")
+            B_arr(row, 1) = regEx.Replace(B_arr(row, 1), "")
         Next row
 
         ' Pause screen update  
